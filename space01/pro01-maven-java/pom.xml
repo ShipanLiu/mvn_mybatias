@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--根标签 project 是用来 表示当前配置文件是用来管理工程的， 不用管-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--  Maven 从2版本就开始 modelVersion 就是 4.00， 这是一个固定值， 不要去修改-->
+  <modelVersion>4.0.0</modelVersion>
+
+<!--  当前的工程的坐标-->
+  <groupId>com.atguigu.maven</groupId>
+  <artifactId>pro01-maven-java</artifactId>
+  <version>1.0-SNAPSHOT</version>
+<!--  packing 表明当前工程打包的方式-->
+<!--  jar： java工程-->
+<!--  war： web工程-->
+<!--  pom： 管理其他工程的工程， 就是用来管人的。-->
+  <packaging>jar</packaging>
+
+<!--  不用管， 删掉也可以。-->
+  <name>pro01-maven-java</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+
+  <!--properties 是当前配置文件中定义的   属性-->
+  <properties>
+    <!--    解析源码文件时候 使用的字符集-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+
+  <!-- 具体的依赖  -->
+  <dependencies>
+    <dependency>
+      <!--      想要 用谁，  就把谁的 jar包的坐标 写下来就行了。-->
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <!--      这个表示依赖的范围-->
+      <scope>test</scope>
+    </dependency>
+	
+	<!-- 为了测试依赖的传递只能在设置 到 copile 的情况下才可以发生-->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>5.3.14</version>
+		<scope>compile</scope>
+	</dependency>
+
+  </dependencies>
+
+
+  <!-- 将来打算在服务器上面跑的的时候， 会依赖这个 -->
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

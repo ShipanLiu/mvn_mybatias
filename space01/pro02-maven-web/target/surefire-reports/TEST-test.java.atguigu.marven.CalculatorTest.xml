@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="test.java.atguigu.marven.CalculatorTest" time="0.074" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="H:\JAVA\project\maven_workspace\space01\pro02-maven-web\target\test-classes;H:\JAVA\project\maven_workspace\space01\pro02-maven-web\target\classes;D:\Java_related_Software\mavan_repo_resource\junit\junit\4.11\junit-4.11.jar;D:\Java_related_Software\mavan_repo_resource\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;D:\Java_related_Software\mavan_repo_resource\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;D:\Java_related_Software\mavan_repo_resource\com\atguigu\maven\pro01-maven-java\1.0-SNAPSHOT\pro01-maven-java-1.0-SNAPSHOT.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
+    <property name="user.timezone" value="Europe/Berlin"/>
+    <property name="user.country.format" value="DE"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="D:\jdk-11.0.13\bin"/>
+    <property name="sun.java.command" value="C:\Users\user\AppData\Local\Temp\surefire9262029283091337119\surefirebooter1249678888381507846.jar C:\Users\user\AppData\Local\Temp\surefire9262029283091337119 2022-03-11T12-08-09_003-jvmRun1 surefire2759579912058939746tmp surefire_05481593832352999879tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="H:\JAVA\project\maven_workspace\space01\pro02-maven-web\target\test-classes;H:\JAVA\project\maven_workspace\space01\pro02-maven-web\target\classes;D:\Java_related_Software\mavan_repo_resource\junit\junit\4.11\junit-4.11.jar;D:\Java_related_Software\mavan_repo_resource\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;D:\Java_related_Software\mavan_repo_resource\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;D:\Java_related_Software\mavan_repo_resource\com\atguigu\maven\pro01-maven-java\1.0-SNAPSHOT\pro01-maven-java-1.0-SNAPSHOT.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\user"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2021-10-19"/>
+    <property name="java.home" value="D:\jdk-11.0.13"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="H:\JAVA\project\maven_workspace\space01\pro02-maven-web"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\user\AppData\Local\Temp\surefire9262029283091337119\surefirebooter1249678888381507846.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.13+10-LTS-370"/>
+    <property name="user.name" value="Shipan Liu"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="18.9"/>
+    <property name="localRepository" value="D:\Java_related_Software\mavan_repo_resource"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\user\AppData\Local\Temp\"/>
+    <property name="java.version" value="11.0.13"/>
+    <property name="user.dir" value="H:\JAVA\project\maven_workspace\space01\pro02-maven-web"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="user.language.format" value="de"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="D:\jdk-11.0.13\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;D:\jdk-11.0.13\bin;D:\Java_related_Software\apache-maven-3.5.4-bin\bin;C:\Users\user\AppData\Local\Microsoft\WindowsApps;;C:\Users\user\AppData\Local\Programs\Microsoft VS Code\bin;."/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vm.version" value="11.0.13+10-LTS-370"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="testSum" classname="test.java.atguigu.marven.CalculatorTest" time="0.008"/>
+</testsuite>
