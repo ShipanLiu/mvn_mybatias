@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.mybatis.dao.OrderMapper">
+
+    <!--因为你查询了
+            o.order_id,
+            o.order_name,
+            c.customer_id,
+            c.customer_name
+       所以不可能用resultType 来映射到 TOrder 里面，
+       所以只能用  resultMap， 这个时候就体现出来了resultMap力量
+            -->
+    <resultMap id="selectOrdereWithCustomerResultMap" type="com.atguigu.mybatis.entity.TOrder">
+        <!--因为 orderId 是主键， 所以用id-->
+        <id column="order_id" property="orderId" />
+        <result column="order_name" property="orderName" />
+
+        <!-- association标签：映射对一关联关系：给Customer属性填充数据 -->
+        <!-- property属性：给TOrder对象中的哪一个属性设置数据, 这里 TOrder 里面有一个 customer 属性 -->
+        <!-- javaType属性：customer属性的全类名 -->
+        <association property="customer" javaType="com.atguigu.mybatis.entity.TCustomer">
+
+            <!-- 针对customer属性设置数据：建立字段和属性的对应关系 -->
+            <result column="customer_id" property="customerId" />
+            <result column="customer_name" property="customerName"/>
+        </association>
+
+    </resultMap>
+
+    <!--TOrder selectOrdereWithCustomer(Integer orderId);-->
+    <!--left outer join, (就是把左边的全部显示出来， 包括重叠的部分)-->
+    <select id="selectOrdereWithCustomer" resultMap="selectOrdereWithCustomerResultMap">
+        select
+            o.order_id,
+            o.order_name,
+            c.customer_id,
+            c.customer_name
+        from
+            t_order o
+        left join
+            t_customer c
+        on
+            o.customer_id= c.customer_id
+        where
+            order_id=#{choosedOrderId}
+    </select>
+</mapper>

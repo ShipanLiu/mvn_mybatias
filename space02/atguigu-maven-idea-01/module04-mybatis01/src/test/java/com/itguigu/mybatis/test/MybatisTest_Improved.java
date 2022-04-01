@@ -1,7 +1,9 @@
 package com.itguigu.mybatis.test;
 
 import com.atguigu.mybatis.dao.EmployeeMapper;
+import com.atguigu.mybatis.dao.OrderMapper;
 import com.atguigu.mybatis.entity.Emp;
+import com.atguigu.mybatis.entity.TOrder;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -144,6 +146,43 @@ public class MybatisTest_Improved {
             System.out.println("emp : " + emp);
         }
     }
+
+    // 查自增主键
+    @Test
+    public void testGetGeneratedKey() {
+        EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
+        Emp emp = new Emp(null, "Jiujo", 888.00);
+        int rowCount = employeeMapper.insertWithKey(emp);
+        System.out.println("rowCount is : " + rowCount);
+        // 自增的主键 会放到 emp 对象的 empId 里面。
+        // 不要通过查询来获得 empId（应该用自增主键的方式）， 因为会在并发发情况下 出错
+        System.out.println("empId is : " + emp.getEmpId());
+    }
+
+
+
+    @Test
+    public void testSelectWithResultMap() {
+        EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
+        List<Emp> empList = employeeMapper.selectWithReasltMap();
+        for(Emp emp : empList) {
+            System.out.println(emp.toString());
+        }
+    }
+
+
+    /* here is for testing the customer and orders*/
+
+    @Test
+    public void testOrderWithCustomer() {
+        OrderMapper orderMapper = session.getMapper(OrderMapper.class);
+        TOrder order = orderMapper.selectOrdereWithCustomer(1);
+        System.out.println("the order is: " + order.toString());
+        System.out.println("the customer is: " + order.getCustomer());
+        // TOrder{orderId=1, orderName='o1', customer=TCustomer{customerId=1, customerName='c01', orderList=null}}
+    }
+
+
 
 
 

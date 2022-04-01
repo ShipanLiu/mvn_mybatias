@@ -81,4 +81,40 @@
         select * from t01
     </select>
 
+
+    <!--int insertWithKey(Emp aEmp);-->
+    <!--为了拿到刚刚插入时候的 自增的id 值。-->
+    <!-- useGeneratedKeys属性：设置为true表示需要获取自增的主键 -->
+    <!-- keyProperty属性：表示获取到自增主键的值存入实体类对象的属性中 , 这里我们当然存到 empId 属性里面-->
+    <insert id="insertWithKey" useGeneratedKeys="true" keyProperty="empId">
+        insert into t01(emp_name, emp_salary) values (#{empName}, #{empSalary})
+    </insert>
+
+
+
+
+
+
+
+    <!--resultMap 需要单独定义-->
+    <!-- 使用resultMap标签明确声明数据库表字段名和属性名的对应关系 -->
+    <!-- id属性：resultMap标签的唯一标识 -->
+    <!-- type属性：指定Java实体类类型的全类名，用于封装最后的实体类数据 -->
+    <resultMap id="selectWithReasltMapResultMap" type="com.atguigu.mybatis.entity.Emp">
+
+        <!-- 使用id标签声明主键字段和属性的对应关系 -->
+        <id column="emp_id" property="empId"/>
+        <!-- 使用result标签声明对应关系 -->
+        <!-- , 因为用了 id 标签， 这个标签就不用了       <result column="emp_id" property="empId"/>-->
+        <result column="emp_name" property="empName"/>
+        <result column="emp_salary" property="empSalary"/>
+    </resultMap>
+
+    <!-- List<Emp> selectWithReasltMap();-->
+    <select id="selectWithReasltMap" resultMap="selectWithReasltMapResultMap">
+        select emp_id, emp_name, emp_salary from t01
+    </select>
+
+
+
 </mapper>

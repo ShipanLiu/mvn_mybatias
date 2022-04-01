@@ -53,4 +53,8 @@ public interface EmployeeMapper {
     Map<String, Object> returnMap(Integer select_id);
 
     List<Emp> returnList();
+
+    int insertWithKey(Emp aEmp);
+
+    List<Emp> selectWithReasltMap();
 }

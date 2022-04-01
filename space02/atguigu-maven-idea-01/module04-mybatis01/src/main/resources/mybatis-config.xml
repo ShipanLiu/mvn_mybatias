@@ -48,5 +48,7 @@
         <!--现在是一个java的project， 根路径是 resources目录，在web project 上面， 类路径是 ： WEB-INF 目录下面的 classes目录。
         意思是说， 现在project的 java 和 resources 目录都会被放到将来web目录的 WEB-INF/classes 下面，-->
         <mapper resource="mappers/EmployeeMapper.xml"/>
+        <!--不要忘记是需要注册 写 sql 的文件的-->
+        <mapper resource="mappers/OrderMapper.xml"/>
     </mappers>
 </configuration>
