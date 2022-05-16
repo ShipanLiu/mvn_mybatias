@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- here in namespace, you have to write the name of the interface(in this interface we will build many
+mathods to support the sql), 通过这个 Interface里面的方法 来是新对数据库的操作，因此， namespace 也是非常重要的-->
+<mapper namespace="com.atguigu.mybatis.mapperInterface.CustomerMapper">
+
+</mapper>

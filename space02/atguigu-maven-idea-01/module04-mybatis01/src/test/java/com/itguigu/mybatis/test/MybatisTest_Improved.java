@@ -21,12 +21,13 @@ public class MybatisTest_Improved {
 
     private SqlSession session;
 
-    // junit会在每一个 @Test之前执行 @Test的方法
+    // junit会在每一个 @Test之前执行 @Before的方法
     @Before
     public void init() throws IOException {
         session = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml")).openSession();
     }
 
+    // junit会在每一个@Test之后 执行 @After 方法
     @After
     public void clear() {
         // if you do not commit, the value in mysql will not change
