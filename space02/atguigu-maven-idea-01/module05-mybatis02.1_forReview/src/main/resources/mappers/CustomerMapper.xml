@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- here in namespace, you have to write the name of the interface(in this interface we will build many
+mathods to support the sql), 通过这个 Interface里面的方法 来是新对数据库的操作，因此， namespace 也是非常重要的-->
+<!--mapper 是root 标签 ， namespace 属性是找到当前配置的 依据-->
+<!--最理想的mybatis 的使用方法是 ： 通过mapper接口 之需要调用 接口的方法， 从而访问数据库（我不用去管接口是怎么实现的）-->
+<!--这样的方式要求我们：  能够通过 interface class name 来找到 Mapper 的配置-->
+<mapper namespace="com.atguigu.mybatis.mapper.CustomerMapper">
+
+    <!--下面的select 查询， 因为里面包含了Order的信息， 所以需要 resultMap 来帮助    -->
+    <resultMap id="selectCustomerWithOrderlistMap" type="com.atguigu.mybatis.entity.Customer">
+        <id column="customer_id" property="customerId"/>
+        <result column="customer_name" property="customerName"/>
+
+<!--        因为是 对多， 所以不用 assocation（是针对对一 的）-->
+<!--         因为在 Customer；类里面定义了 orderList   private List<Order> orderList;  -->
+        <collection property="orderList" ofType="com.atguigu.mybatis.entity.Order">
+            <id column="order_id" property="orderId"/>
+            <result column="order_name" property="orderName"/>
+            <result column="customer_id" property="customerId"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectCustomerWithOrderlist" resultMap="selectCustomerWithOrderlistMap">
+        select c.customer_id,customer_name,order_id,order_name
+        from t_customer c left join t_order o on c.customer_id=o.customer_id
+        where c.customer_id=#{customerId}
+    </select>
+
+
+    <!--为了配合 orderMapper 里面的 分布查询 或者 懒查询-->
+    <!--只 用来查询customer 的语句-->
+    <!--定位到 这条语句的方式 ：  用 namespace.id   即： com.atguigu.mybatis.mapper.CustomerMapper.selectCustomerById -->
+    <select id="selectCustomerById" resultType="com.atguigu.mybatis.entity.Customer">
+        select customer_id,customer_name from t_customer where customer_id=#{customerId}
+    </select>
+
+
+    <!--对多   的 distributed 查询 -->
+    <resultMap id="distributedQueryToMultiResultMap" type="com.atguigu.mybatis.entity.Customer">
+        <!--part 1 for customer self-->
+        <id column="customer_id" property="customerId"/>
+        <result column="customer_name" property="customerName"/>
+
+        <!--part 2 : for Order-->
+        <!-- 在Customer 里面 就有 orderList 这个属性-->
+
+        <collection property="orderList" column="customer_id" select="com.atguigu.mybatis.mapper.OrderMapper.selectOrderListByCustomerId"/>
+    </resultMap>
+
+    <select id="distributedQueryToMulti" resultMap="distributedQueryToMultiResultMap">
+        select customer_id,customer_name from t_customer where customer_id=#{customerId}
+    </select>
+
+</mapper>

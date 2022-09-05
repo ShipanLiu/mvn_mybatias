@@ -19,7 +19,7 @@
         <result column="order_name" property="orderName" />
 
         <!-- association标签：映射对一关联关系：给Customer属性填充数据 -->
-        <!-- property属性：给TOrder对象中的哪一个属性设置数据, 这里 TOrder 里面有一个 customer 属性 -->
+        <!-- property属性：给TOrder对象中的哪一个属性设置数据, 这里 TOrder 里面有一个 customer 属性为 TCustomer -->
         <!-- javaType属性：customer属性的全类名 -->
         <association property="customer" javaType="com.atguigu.mybatis.entity.TCustomer">
 

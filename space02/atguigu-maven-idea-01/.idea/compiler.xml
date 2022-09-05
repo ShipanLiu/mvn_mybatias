@@ -8,9 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="module05-mybatis02" />
         <module name="module03-web" />
+        <module name="module06-mybatia-dynamicSQL" />
         <module name="module04-mybatis01" />
         <module name="module02" />
         <module name="module01" />
+        <module name="module05-mybatis02.1_forReview" />
       </profile>
     </annotationProcessing>
   </component>

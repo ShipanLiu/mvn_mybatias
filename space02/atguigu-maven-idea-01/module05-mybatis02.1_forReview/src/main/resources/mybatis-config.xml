@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--     我需要 让mybatis 知道我有一个这样的外部文件-->
+    <properties resource="jdbc.properties"/>
+
+
+    <settings>
+        <!--别名， 为了让 mysql 种字段的名字 和 实体中的名字 对应    nameId -> name_id   -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!--开启延迟加载的功能-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+<!--mybatis 工作的时候有可能用到的外部的文件-->
+    <environments default="development">
+
+<!--        一个 environment is a set of information about one database info-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+<!--        ${} is to quote some outside values     -->
+                <property name="driver" value="${mysql_dev_driver}"/>
+                <property name="url" value="${mysql_dev_url}"/>
+                <property name="username" value="${mysql_dev_username}"/>
+                <property name="password" value="${mysql_dev_password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 必须注册 Mapper, only after this we can use it -->
+    <mappers>
+        <mapper resource="mappers/OrderMapper.xml"/>
+        <mapper resource="mappers/CustomerMapper.xml"/>
+    </mappers>
+</configuration>

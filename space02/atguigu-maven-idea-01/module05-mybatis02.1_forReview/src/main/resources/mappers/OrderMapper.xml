@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- here in namespace, you have to write the name of the interface(in this interface we will build many
+mathods to support the sql), 通过这个 Interface里面的方法 来是新对数据库的操作，因此， namespace 也是非常重要的-->
+<!--mapper 是root 标签 ， namespace 属性是找到当前配置的 依据-->
+<!--最理想的mybatis 的使用方法是 ： 通过mapper接口 之需要调用 接口的方法， 从而访问数据库（我不用去管接口是怎么实现的）-->
+<!--这样的方式要求我们：  能够通过 interface class name 来找到 Mapper 的配置-->
+<mapper namespace="com.atguigu.mybatis.mapper.OrderMapper">
+    <select id="selectMyOrder" resultType="com.atguigu.mybatis.entity.Order">
+        select order_id, order_name, customer_id from t_order where order_id=#{orderId}
+    </select>
+
+<!--    resultMap标签 ：  声明关联关系映射方式（zB left join）-->
+<!--    id属性： 给当前resultMap 标签 设定一个唯一标识， 便于在需要的地方引用-->
+<!--    type属性： 封装最终数据实体类的全类名  这里是 order 对象-->
+    <resultMap id="selectOrderWithCustomerResultMap" type="com.atguigu.mybatis.entity.Order">
+<!--        first part:  the attributes about Order itself-->
+<!--        id 标签或者 是 result 标签: 设定对应的关系-->
+<!--        column： database 的 字段名-->
+<!--        property： Order 实体里面的 属性名称-->
+        <id column="order_id" property="orderId"/>
+        <result column="order_name" property="orderName"/>
+        <result column="customer_id" property="customerId"/>
+
+
+<!--        第二部分：-->
+<!--        assication 标签：  映射 【对一】 的关联关系（不管我是一还是多， 我要求对方是 一）-->
+<!--        property： 在Order 实体类型中， 用来建立关联关系 的 属性名-， 这里是 customer 属性， 因为在 Oder 类里面-->
+<!--： 有个     private Customer customer;  customer 不是一般的属性， 所以 用assiccation-->
+        <association property="customer" javaType="com.atguigu.mybatis.entity.Customer">
+<!--            这里面的property 就是 Customer 类里面的 属性-->
+            <id column="customer_id" property="customerId"/>
+            <result column="customer_name" property="customerName"/>
+        </association>
+    </resultMap>
+
+<!--        Order selectOrderWithCustomer(Integer orderId);  -->
+    <select id="selectOrderWithCustomer" resultMap="selectOrderWithCustomerResultMap">
+        select order_id,order_name,c.customer_id
+        from t_order o left join t_customer c on o.customer_id=c.customer_id
+        where order_id=#{orderId}
+    </select>
+
+
+
+    <!--分布查询 —————— 懒查询， -->
+    <!--对多   的 distributed 查询 -->
+
+    <resultMap id="distributedselectResultMap" type="com.atguigu.mybatis.entity.Order">
+        <!-- first part : about order it self-->
+            <id column="order_id" property="orderId"/>
+            <result column="order_name" property="orderName"/>
+            <result column="customer_id" property="customerId"/>
+
+        <!--second part: about customer via orer-->
+        <!--property="customer" 是因为在 Order 类里面定义了 Private Customer customer -->
+        <!--select 属性是 ： 定位到另外一条专门查询 Customer 的SQL 语句-->
+        <!--column 属性 指定用来给 SQL（用来查询 customer语句）传参的-->
+            <association property="customer" column="customer_id" select="com.atguigu.mybatis.mapper.CustomerMapper.selectCustomerById"/>
+
+    </resultMap>
+    <select id="distributedselect" resultMap="distributedselectResultMap">
+        select order_id,order_name,customer_id
+        from t_order
+        where order_id=#{orderId}
+    </select>
+
+
+    <!-- this select serves for the distributed 查询 -->
+    <!--定位：  com.atguigu.mybatis.mapper.OrderMapper.selectOrderListByCustomerId-->
+    <select id="selectOrderListByCustomerId" resultType="com.atguigu.mybatis.entity.Order">
+        select order_id,order_name,customer_id
+        from t_order
+        /*myid 是在 CustomerMapper 里面的 collection 中的 column 传的值，接受这个值的名字可以是 自己任意取*/
+        where customer_id=#{myid}
+    </select>
+
+
+</mapper>
