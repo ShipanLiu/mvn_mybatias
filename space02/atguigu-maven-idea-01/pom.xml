@@ -18,6 +18,7 @@
         <module>module05-mybatis02</module>
         <module>module05-mybatis02.1_forReview</module>
         <module>module06-mybatia-dynamicSQL</module>
+        <module>module07-spring01</module>
     </modules>
 
     <!--我在主project 里面使用继承， 所以每一个moudle 里面的 小pom 就不用 来单独引入dependencies了-->

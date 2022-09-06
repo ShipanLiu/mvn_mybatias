@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--
+    因为要用 util 作为标签 所以加上命名空间
+           xmlns:util="http://www.springframework.org/schema/util"
+    又因为 util 需要约束 ：所以加上
+
+       http://www.springframework.org/schema/util
+       https://www.springframework.org/schema/util/spring-util.xsd">
+    -->
+
+    <!--这就是 Spring 的约束-->
+    <!-- 将student对象装配到IOC容器中-->
+    <!--（推荐 set 注入）if you use <property> then, you use the method setStuName() in the class Student-->
+    <bean id="stuJiba" class="com.atguigu.spring.pojo.Student">
+        <property name="stuId" value="000"></property>
+        <property name="stuName" value="jiab1"></property>
+    </bean>
+
+    <!-- (不推荐) if you use <constructor-arg> then you use the constructor to inssert value for the Student-->
+    <bean id="stuXiaoming" class="com.atguigu.spring.pojo.Student">
+        <constructor-arg name="stuId" value="001"></constructor-arg>
+        <constructor-arg name="stuName" value="Xiaoming"></constructor-arg>
+    </bean>
+
+
+    <!--下面开始新知识， 用的是 Emp-->
+
+    <!--装配一个 Dept,-->
+    <!--外部已经声明的bean-->
+    <bean id="dept1" class="com.atguigu.spring.pojo.Dept">
+        <property name="deptId" value="1"></property>
+        <property name="deptName" value="development_department"></property>
+    </bean>
+    <!--测试 外部bean-->
+    <bean id="empChai" class="com.atguigu.spring.pojo.Emp">
+        <property name="id" value="101"></property>
+        <property name="lastName" value="chai"></property>
+        <property name="email" value="chai@gmail.com"></property>
+        <property name="salary" value="6000.00"></property>
+        <!-- dept 不是 基本数据类型  而是 Dept -->
+        <property name="dept" ref="dept1"></property>
+        <!--我不满意 development_department 想要更改一下名字， 外部bean 的值 立刻会改-->
+        <property name="dept.deptName" value="financial_department"></property>
+    </bean>
+
+    <!--测试 内部bean-->
+    <bean id="empXin" class="com.atguigu.spring.pojo.Emp">
+        <property name="id" value="102"></property>
+        <property name="lastName" value="xin"></property>
+        <property name="email" value="xin@gmail.com"></property>
+        <property name="salary" value="3000.00"></property>
+        <!-- dept 不是 基本数据类型  而是 Dept -->
+        <!-- 这个 内部的 dept bean 不会再对  外部的bean 的 数值有影响-->
+        <property name="dept">
+            <!--这个internal bean 不会被 放入ioc 容器-->
+            <bean class="com.atguigu.spring.pojo.Dept">
+                <property name="deptId" value="3"></property>
+                <property name="deptName" value="HR_department"></property>
+            </bean>
+        </property>
+
+    </bean>
+
+
+
+
+
+    <!--测试 List, 即 Dept 中有 很多 Emp-->
+
+
+    <!--第一种方式-->
+    <bean id="dept4" class="com.atguigu.spring.pojo.Dept">
+        <property name="deptId" value="4"></property>
+        <property name="deptName" value="jiba-department"></property>
+        <property name="empList">
+            <list>
+                <!--自己定义一个员工 ErDan,用内部bean-->
+                <bean class="com.atguigu.spring.pojo.Emp">
+                    <property name="id" value="103"></property>
+                    <property name="lastName" value="ErDan"></property>
+                    <property name="email" value="erdan@gmail.com"></property>
+                    <property name="salary" value="2000.00"></property>
+                </bean>
+                <!--引用外部的两个已经定义好的 Bean-->
+                <ref bean="empChai"></ref>
+                <ref bean="empXin"></ref>
+            </list>
+        </property>
+
+    </bean>
+
+
+    <!-- 第二种方式-->
+    <!--我把 list 直接 拿出来， 避免臃肿,  alt+enter 自动填充-->
+    <util:list id="empList">
+            <!--自己定义一个员工 ErDan,用内部bean-->
+            <bean class="com.atguigu.spring.pojo.Emp">
+                <property name="id" value="103"></property>
+                <property name="lastName" value="ErDan"></property>
+                <property name="email" value="erdan@gmail.com"></property>
+                <property name="salary" value="2000.00"></property>
+            </bean>
+            <!--引用外部的两个已经定义好的 Bean-->
+            <ref bean="empChai"></ref>
+            <ref bean="empXin"></ref>
+    </util:list>
+
+
+    <bean id="dept5" class="com.atguigu.spring.pojo.Dept">
+        <property name="deptId" value="5"></property>
+        <property name="deptName" value="Dan-department"></property>
+        <property name="empList" ref="empList"></property>
+    </bean>
+
+
+    <!-- 现在测试Map-->
+    <!-- 不提取Map 的版本-->
+    <bean id="dept6" class="com.atguigu.spring.pojo.Dept">
+        <property name="deptId" value="6"></property>
+        <property name="deptName" value="boss-department"></property>
+        <property name="empMap">
+            <map>
+                <!-- 可以用 bean ， 也可以用ref-->
+                <entry>
+                    <key>
+                        <value>001</value>
+                    </key>
+                    <bean class="com.atguigu.spring.pojo.Emp">
+                        <property name="id" value="001"></property>
+                        <property name="lastName" value="Shi"></property>
+                        <property name="email" value="shi@gmail.com"></property>
+                        <property name="salary" value="100000.00"></property>
+                    </bean>
+                </entry>
+
+                <entry>
+                    <key>
+                        <value>002</value>
+                    </key>
+                    <ref bean="empXin"></ref>
+                </entry>
+
+                <!-- 引用方式 第二种-->
+                <entry key="003" value-ref="empChai"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 提取Map 的版本-->
+    <util:map id="empMap">
+        <!-- 可以用 bean ， 也可以用ref-->
+        <entry>
+            <key>
+                <value>001</value>
+            </key>
+            <bean class="com.atguigu.spring.pojo.Emp">
+                <property name="id" value="001"></property>
+                <property name="lastName" value="Shi"></property>
+                <property name="email" value="shi@gmail.com"></property>
+                <property name="salary" value="100000.00"></property>
+            </bean>
+        </entry>
+
+        <entry>
+            <key>
+                <value>002</value>
+            </key>
+            <ref bean="empXin"></ref>
+        </entry>
+
+        <!-- 引用方式 第二种-->
+        <entry key="003" value-ref="empChai"></entry>
+    </util:map>
+
+
+    <bean id="dept7" class="com.atguigu.spring.pojo.Dept">
+        <property name="deptId" value="6"></property>
+        <property name="deptName" value="boss-department"></property>
+        <property name="empMap" ref="empMap"/>
+    </bean>
+
+</beans>

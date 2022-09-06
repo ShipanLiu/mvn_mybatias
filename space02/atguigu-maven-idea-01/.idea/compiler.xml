@@ -13,6 +13,7 @@
         <module name="module02" />
         <module name="module01" />
         <module name="module05-mybatis02.1_forReview" />
+        <module name="module07-spring01" />
       </profile>
     </annotationProcessing>
   </component>
