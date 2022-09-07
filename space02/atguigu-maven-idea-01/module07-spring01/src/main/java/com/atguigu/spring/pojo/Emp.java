@@ -15,6 +15,8 @@ public class Emp {
         this.lastName = lastName;
         this.email = email;
         this.salary = salary;
+
+        // 这是 非字面量值， 我们可以使用xml 的 自动装配
         this.dept = dept;
     }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--装配一个  DeptDaoImpl 对象-->
+    <bean id="dptDao_randomName" class="com.atguigu.spring.dao.impl.DeptDaoImpl"></bean>
+
+    <!--装配一个  DeptServiceImpl 对象-->
+    <!-- 这是手动装配的-->
+
+    <!-- 自动装配-->
+    <!--autowire="byName" ： DeptDaoImplbean 的 id  和   DeptServiceImpl 里面的属性名 及进行匹配， 只要 一致， 就自动装配 -->
+    <!--autowire="byType:   DeptDaoImplbean 的 class 类型  和   DeptServiceImpl 里面的属性 的类型 及进行匹配， 只要 一致， 就自动装配   -->
+    <bean id="deptService" class="com.atguigu.spring.service.impl.DeptServiceImpl"
+          autowire="byType"
+    ></bean>
+</beans>
